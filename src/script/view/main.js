@@ -1,6 +1,6 @@
 import DataSource from "../data/data-source.js"
 import "../component/search-bar.js"
-import clubs from "../data/clubs.js"
+import "../component/club-list.js"
 
 const main = () => {
     const searchElement = document.querySelector("search-bar");
@@ -13,8 +13,8 @@ const main = () => {
   // }; atau
 
     const onButtonSearchClicked = async () =>{
-      const result = await DataSource.searchClub(searchElement.value)
       try {
+        const result = await DataSource.searchClub(searchElement.value);
         renderResult(result);
       } catch (message) {
         fallbackResult(message);
@@ -22,11 +22,11 @@ const main = () => {
     }
 
     const renderResult = results => {
-        clubListElement.clubs = result;
+        clubListElement.clubs = results;
     };
 
     const fallbackResult = message => {
-        clubListElement.renderError(message)
+        clubListElement.renderError(message);
     };
 
     searchElement.clickEvent = onButtonSearchClicked;
